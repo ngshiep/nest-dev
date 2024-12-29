@@ -1,5 +1,5 @@
 export interface IResponse {
-  data?: object | null;
-  message?: string | null;
-  isSuccess: boolean;
+  data?: object | null
+  message?: string | null
+  isSuccess: boolean
 }

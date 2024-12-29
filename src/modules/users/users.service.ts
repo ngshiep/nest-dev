@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { IUsersServiceInterface } from './interfaces/users-service.interface';
+import { Injectable } from '@nestjs/common'
+import { IUsersServiceInterface } from './interfaces/users-service.interface'
 
-export type User = any;
+export type User = any
 
 @Injectable()
 export class UsersService implements IUsersServiceInterface {
@@ -9,21 +9,21 @@ export class UsersService implements IUsersServiceInterface {
     {
       userId: 1,
       username: 'john',
-      password: 'changeme',
+      password: 'changeme'
     },
     {
       userId: 2,
       username: 'maria',
-      password: 'guess',
+      password: 'guess'
     },
     {
       userId: 3,
       username: 'Hiep nguyen',
-      password: '1213',
-    },
-  ];
+      password: '1213'
+    }
+  ]
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+    return this.users.find((user) => user.username === username)
   }
 }
