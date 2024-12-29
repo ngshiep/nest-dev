@@ -2,9 +2,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ValidationError } from 'class-validator';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
-import { ResponseFormatInterceptor } from './interceptors/response-format.interceptor';
-import { UnprocessableEntityException } from './interceptors/unprocessable-entity.exception';
+import { HttpExceptionFilter } from './core/filters/http-exception.filter';
+import { ResponseFormatInterceptor } from './core/interceptors/response-format.interceptor';
+import { UnprocessableEntityException } from './core/interceptors/unprocessable-entity.exception';
+import { TransformAndValidatePipe } from './core/pipes/validation-transform-pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,6 +21,7 @@ async function bootstrap() {
       stopAtFirstError: true,
     }),
   );
+  app.useGlobalPipes(new TransformAndValidatePipe());
   app.useGlobalInterceptors(new ResponseFormatInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.PORT ?? 3000);

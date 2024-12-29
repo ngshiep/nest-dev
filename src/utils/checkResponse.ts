@@ -1,4 +1,4 @@
-import { IResponse } from 'src/interceptors/IResponse';
+import { IResponse } from 'src/core/interceptors/IResponse';
 
 export const isIResponse = (obj: any): obj is IResponse => {
   return (
