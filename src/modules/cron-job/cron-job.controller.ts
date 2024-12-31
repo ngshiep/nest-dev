@@ -1,24 +1,21 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
 import { CronJobService } from './cron-job.service'
-import { CreateCronJobDto } from './dto/create-cron-job.dto'
+import { CronJobResponseDto } from './dto/cron-job-response.dto'
 
 @Controller('cron')
 export class CronJobController {
   constructor(private readonly cronService: CronJobService) {}
 
   @Get()
-  getCronJobs(): CreateCronJobDto[] {
+  getCronJobs(): CronJobResponseDto[] {
     return this.cronService.getCronJobs()
   }
 
   @Post()
-  addCronJob(@Body() body: { name: string; time: number; apiKey: string; apiSecret: string }) {
+  addCronJob(@Body() body) {
     const { name, time, apiKey, apiSecret } = body
 
-    const cronJobs = this.cronService.getCronJobs()
-    if (cronJobs.find((cronJob) => cronJob.name === name)) throw new Error(`Cron job "${name}" already exists`)
-
-    this.cronService.addCronJob(name, time, apiKey, apiSecret)
+    this.cronService.addCronJob(name, body)
     return `Cron job "${name}" has been added with time "${time}" and data value1="${apiKey}", value2="${apiSecret}"`
   }
 

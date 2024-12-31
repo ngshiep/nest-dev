@@ -9,6 +9,11 @@ import { TransformAndValidatePipe } from './core/pipes/validation-transform-pipe
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,PUT,POST,DELETE,PATCH'
+  })
+  app.useGlobalPipes(new TransformAndValidatePipe())
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (validationErrors: ValidationError[] = []) => {
@@ -21,7 +26,7 @@ async function bootstrap() {
       stopAtFirstError: true
     })
   )
-  app.useGlobalPipes(new TransformAndValidatePipe())
+
   app.useGlobalInterceptors(new ResponseFormatInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
 

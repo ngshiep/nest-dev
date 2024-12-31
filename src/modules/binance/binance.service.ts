@@ -23,7 +23,6 @@ export class BinanceService {
       return futuresAccountInfo.totalMarginBalance
     } catch (error) {
       this.sendMessageToChannel('test server::: ' + error.message, this.channelId)
-      throw error
     }
   }
   async getFuturesWalletBalanceWithKey(apiKey: string, apiSecret: string) {
@@ -36,7 +35,6 @@ export class BinanceService {
       return futuresAccountInfo.totalMarginBalance
     } catch (error) {
       this.sendMessageToChannel('test server::: ' + error.message, this.channelId)
-      throw error
     }
   }
   async sendMessageToChannel(message: string, channelId: string): Promise<void> {

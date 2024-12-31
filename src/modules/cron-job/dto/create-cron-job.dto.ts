@@ -1,4 +1,4 @@
-import { Exclude, Expose } from 'class-transformer'
+import { Expose } from 'class-transformer'
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
 export class CreateCronJobDto {
@@ -12,6 +12,16 @@ export class CreateCronJobDto {
   @Expose()
   time: number
 
+  @IsNumber()
+  @IsNotEmpty()
+  @Expose()
+  targetBalance: number
+
+  @IsNumber()
+  @IsNotEmpty()
+  @Expose()
+  cbr: number
+
   @IsString()
   @IsNotEmpty()
   @Expose()
@@ -19,6 +29,5 @@ export class CreateCronJobDto {
 
   @IsString()
   @IsNotEmpty()
-  @Exclude()
   apiSecret: string
 }
