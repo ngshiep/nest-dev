@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import binance, { Binance } from 'binance-api-node'
 import * as https from 'https'
 
 @Injectable()
 export class BinanceService {
+  private readonly logger = new Logger(BinanceService.name)
   private readonly binance: Binance
   private readonly channelId = process.env.TELEGRAM_CHAT_ID
   private readonly telegramToken = process.env.TELEGRAM_API_TOKEN
@@ -32,8 +33,10 @@ export class BinanceService {
         apiSecret
       })
       const futuresAccountInfo = await client.futuresAccountInfo()
+      this.logger.warn(`Account Info executing at time (${futuresAccountInfo?.totalMarginBalance})`)
       return futuresAccountInfo.totalMarginBalance
     } catch (error) {
+      this.logger.error(`test server:::  (${error.message})`)
       this.sendMessageToChannel('test server::: ' + error.message, this.channelId)
     }
   }

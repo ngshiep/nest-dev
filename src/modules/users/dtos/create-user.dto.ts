@@ -5,5 +5,5 @@ export class CreateUserDto {
   email: string
 
   @IsNotEmpty()
-  password: string
+  name: string
 }
